@@ -35,7 +35,7 @@
         android:layout_marginTop="8dp"
         android:layout_marginBottom="12dp" />
 
-    <!-- 📋 Expense List -->
+    <!-- Expense List -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="0dp"
@@ -46,7 +46,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <!-- ➕ Add Expense Button -->
+    <!-- Add Expense Button -->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnAdd"
         android:layout_width="0dp"

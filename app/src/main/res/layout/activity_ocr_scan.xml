@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/bg_light"
     android:padding="16dp">
-
+    <!-- Pick Image BUTTON-->
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnStartScan"
         android:layout_width="0dp"

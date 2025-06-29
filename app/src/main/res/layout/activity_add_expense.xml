@@ -13,7 +13,7 @@
         android:layout_marginTop="25dp"
         android:layout_marginBottom="16dp">
 
-        <!-- 🔤 Expense Title -->
+        <!-- Expense Title -->
         <EditText
             android:id="@+id/etTitle"
             android:layout_width="match_parent"
@@ -26,7 +26,7 @@
             android:textColorHint="@color/text_dark_grey"
             android:textSize="16sp" />
 
-        <!-- 💰 Amount -->
+        <!-- Amount -->
         <EditText
             android:id="@+id/etAmount"
             android:layout_width="match_parent"
@@ -40,7 +40,7 @@
             android:textColorHint="@color/text_dark_grey"
             android:textSize="16sp" />
 
-        <!-- 📂 Category Spinner -->
+        <!-- Category Spinner -->
         <Spinner
             android:id="@+id/spinnerCategory"
             android:layout_width="match_parent"
@@ -48,7 +48,7 @@
             android:layout_marginBottom="12dp"
             android:backgroundTint="@color/grey_600" />
 
-        <!-- 📅 Date Picker -->
+        <!-- Date Picker -->
         <EditText
             android:id="@+id/etDate"
             android:layout_width="match_parent"
@@ -62,7 +62,7 @@
             android:textColorHint="@color/text_dark_grey"
             android:textSize="16sp" />
 
-        <!-- ✅ Save Button -->
+        <!-- Save Button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSaveExpense"
             android:layout_width="match_parent"
