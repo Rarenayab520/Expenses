@@ -19,7 +19,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-
+    <!-- Scanned Text  -->
     <TextView
         android:id="@+id/tvScannedText"
         android:layout_width="0dp"

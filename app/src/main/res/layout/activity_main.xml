@@ -17,7 +17,7 @@
         android:layout_height="wrap_content"
         android:text="Smart Expense Tracker"
         android:textSize="26sp"
-        android:textColor="@color/text_primary"
+        android:textColor="#B3A4A4"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"

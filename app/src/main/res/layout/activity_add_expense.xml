@@ -72,7 +72,7 @@
             android:backgroundTint="@color/btn_primary"
             app:cornerRadius="12dp"
             android:layout_marginBottom="12dp" />
-
+        <!-- Scan Receipt -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnScanReceipt"
             android:layout_width="match_parent"
