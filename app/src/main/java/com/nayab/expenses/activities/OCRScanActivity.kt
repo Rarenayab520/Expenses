@@ -53,27 +53,22 @@ class OCRScanActivity : AppCompatActivity() {
         recognizer.process(image)
             .addOnSuccessListener { visionText ->
                 val fullText = visionText.text
+                val lines = fullText.lines().map { it.trim() }
 
-                // 📝 Extract title
-                val lines = fullText.lines()
-                val title = lines.firstOrNull()?.take(50) ?: "Unknown Expense"  // Optional: Trim long title
+                // 🏪 Extract Title (first non-empty line)
+                val title = lines.firstOrNull { it.isNotBlank() } ?: "Unknown Expense"
 
-                // 💰 Extract all matched Rs. amounts and pick the highest
-                val amountRegex = Regex("""Rs\.?\s?(\d+(\.\d{1,2})?)""", RegexOption.IGNORE_CASE)
-                val allAmounts = amountRegex.findAll(fullText).mapNotNull {
-                    it.groups[1]?.value?.toDoubleOrNull()
-                }.toList()
-                val amount = allAmounts.maxOrNull()?.toString()  // 👈 pick the highest
+                // 💸 Extract total amount
+                val amount = extractAmountFromText(lines)
 
                 // 📅 Extract date
-                val dateRegex = Regex("""\b(\d{1,2}[/-]\d{1,2}[/-]\d{2,4})\b""")
-                val dateMatch = dateRegex.find(fullText)?.value
+                val date = extractDate(fullText)
 
-                // 🎯 Pass scanned result back
+                // ✅ Return the result
                 val resultIntent = Intent().apply {
                     putExtra("scanned_title", title)
-                    putExtra("scanned_amount", amount)
-                    putExtra("scanned_date", dateMatch)
+                    putExtra("scanned_amount", amount ?: "0")
+                    putExtra("scanned_date", date ?: "Unknown Date")
                 }
 
                 setResult(Activity.RESULT_OK, resultIntent)
@@ -84,4 +79,39 @@ class OCRScanActivity : AppCompatActivity() {
             }
     }
 
+    // 🔍 Total Amount Extractor with smart keyword matching
+    private fun extractAmountFromText(lines: List<String>): String? {
+        val totalKeywords = listOf("total", "amount", "subtotal", "cash", "grand total", "paid", "rm", "$", "rs")
+
+        for (line in lines.reversed()) {
+            val lowerLine = line.lowercase()
+            if (totalKeywords.any { lowerLine.contains(it) }) {
+                val amountRegex = Regex("""(\d+[,.]?\d*)""")
+                val match = amountRegex.find(line)
+                if (match != null) return match.value
+            }
+        }
+
+        // fallback: largest number in all text
+        val numberRegex = Regex("""\d+[,.]?\d*""")
+        return numberRegex.findAll(lines.joinToString(" "))
+            .mapNotNull { it.value.toDoubleOrNull() }
+            .maxOrNull()?.toString()
+    }
+
+    // 📅 Date extractor supporting multiple formats
+    private fun extractDate(text: String): String? {
+        val datePatterns = listOf(
+            Regex("""\b\d{1,2}[/-]\d{1,2}[/-]\d{2,4}\b"""),  // 25/06/2025 or 25-06-2025
+            Regex("""\b\d{4}-\d{2}-\d{2}\b"""),              // 2025-06-25
+            Regex("""\b\d{1,2}/\d{1,2}/\d{4}\b""")           // 12/28/2017
+        )
+
+        for (pattern in datePatterns) {
+            val match = pattern.find(text)
+            if (match != null) return match.value
+        }
+
+        return null
+    }
 }
