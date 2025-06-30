@@ -2,14 +2,9 @@
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:shape="rectangle">
 
-    <!-- Rounded corners -->
     <corners android:radius="50dp" />
-
-    <!-- White bold stroke for visibility -->
     <stroke
         android:width="2dp"
-        android:color="#FFFFFF" /> <!-- White border -->
-
-    <!-- Transparent fill inside -->
+        android:color="#FFFFFF" />
     <solid android:color="@android:color/transparent" />
 </shape>
